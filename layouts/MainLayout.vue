@@ -1,7 +1,7 @@
 <template>
     <section id="Layout">
         <header class="bg-[#202024]">
-            <div class="flex items-center justify-center cursor-pointer py-5" @click="router.push('/login')">
+            <div class="flex items-center justify-center cursor-pointer py-5">
                 <span>
                     <svg width="65" height="61" viewBox="0 0 65 61" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path opacity="0.5"
@@ -24,5 +24,5 @@
 </template>
 
 <script setup>
-const router = useRouter()
+
 </script>

@@ -1,33 +1,31 @@
 <template>
     <section id="ProfileCard">
-        <div class="max-w-[1140px] max-h-[700px] bg-[#202024] rounded-[8px] relative">
-            <div>
-                <img src="/cust.png" alt="cust" class="w-full object-contain rounded-t-[8px]">
-            </div>
-            <div>
-                <div class="flex justify-center">
-                    <div>
-                        <img src="/Profile.png" alt=""
-                            class="w-[100px] h-[100px] absolute top-0 left-[45%] right-0 bottom-0 mt-[240px]">
-                        <div class="text-center mt-10 mb-10">
-                            <h2 class="text-white font-bold text-[16px]">Leslie Alexander</h2>
-                            <p class="text-[#8D8D99] text-[14px] leading-[160%]">lesi@leslie.com</p>
-                        </div>
-                    </div>
+        <div class="max-w-[1140px] max-h-[700px] bg-[#202024] rounded-[8px] py-10 px-6">
+
+            <div class="flex justify-between pb-6">
+                <div class="flex items-center gap-2">
+                    <Icon name="gg:profile" color="white" />
+                    <h2 class="text-white font-bold text-[18px]">lesi@leslie.com</h2>
                 </div>
-                <div class="border-b-2 border-[#323238]" />
-                
-                <div class="mt-6 pb-6 px-6">
-                    <button
-                        @click="isCloseOverlay = true"
-                        class="border w-full border-[#00B37E] text-white bg-[#00B37E] text-[16px] font-bold duration transition-all hover:text-[#00B37E] hover:bg-[#202024] rounded-[8px] py-4 px-6 group flex items-center justify-center gap-1">
-                        Написать заметку
-                        <div class="duration transition-all group-hover:text-[#00B37E]">
-                            <Icon name="ph:plus-fill" />
-                        </div>
+                <div>
+                    <button @click="router.push('/login')" class="flex items-center gap-2 text-white font-bold text-[18px]">
+                        <Icon name="mdi:logout" />
+                        <span>Выйти</span>
                     </button>
                 </div>
             </div>
+            <div class="border-b-2 border-[#323238]" />
+
+            <div class="mt-6">
+                <button @click="isCloseOverlay = true"
+                    class="border w-full border-[#00B37E] text-white bg-[#00B37E] text-[16px] font-bold duration transition-all hover:text-[#00B37E] hover:bg-[#202024] rounded-[8px] py-4 px-6 group flex items-center justify-center gap-1">
+                    Написать заметку
+                    <div class="duration transition-all group-hover:text-[#00B37E]">
+                        <Icon name="ph:plus-fill" />
+                    </div>
+                </button>
+            </div>
+
         </div>
     </section>
 </template>
@@ -37,4 +35,6 @@ import { useTaskStore } from "../stores/task"
 import { storeToRefs } from "pinia";
 
 const { isCloseOverlay } = storeToRefs(useTaskStore())
+
+const router = useRouter()
 </script>
