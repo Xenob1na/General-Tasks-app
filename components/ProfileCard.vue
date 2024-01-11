@@ -8,9 +8,10 @@
                     <h2 class="text-white font-bold text-[18px]">lesi@leslie.com</h2>
                 </div>
                 <div>
-                    <button @click="router.push('/login')" class="flex items-center gap-2 text-white font-bold text-[18px]">
-                        <Icon name="mdi:logout" />
-                        <span>Выйти</span>
+                    <button :disabled="isDisabled" @click="router.push('/login')" class="flex items-center gap-2 text-white font-bold text-[18px]">
+                        <Icon v-if="!isDisabled" name="mdi:logout" />
+                        <Icon v-else name="eos-icons:bubble-loading" size="18" color="white" />
+                        <span >Выйти</span>
                     </button>
                 </div>
             </div>
@@ -37,4 +38,7 @@ import { storeToRefs } from "pinia";
 const { isCloseOverlay } = storeToRefs(useTaskStore())
 
 const router = useRouter()
+
+const isDisabled = ref(false)
+
 </script>
