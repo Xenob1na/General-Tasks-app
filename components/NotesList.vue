@@ -15,7 +15,7 @@
                     </button>
 
                     <div v-if="isMenu" class="absolute border right-0 z-20 mt-1 rounded">
-                        <button 
+                        <button @click="onDelete(items.id)"
                             class="flex items-center rounded gap-2 text-red-500 justify-between bg-white w-full pl-4 pr-3 py-2 hover:bg-[#e1e1e1]">
                             <div>Удалить</div>
                             <Icon name="solar:trash-bin-trash-broken" size="20" />
@@ -28,10 +28,6 @@
             <div class="mt-5">
                 <h1 class="text-white font-bold text-[30px]">{{ items.title }}</h1>
                 <p class="text-[#B0B0B0] font-medium text-[16px] mt-3">{{ items.body }}</p>
-                <div class="flex items-center justify-end gap-2 mt-5">
-                    <Icon name="solar:calendar-date-bold" color="white" size="20"/>
-                    <span class="text-[#888888]">{{ displayableDate(items.time) }}</span>
-                </div>
             </div>
 
         </div>
@@ -39,24 +35,42 @@
 </template>
 
 <script setup lang="ts">
+import { useTaskStore } from "../stores/task"
+
+const { delNotes } = useTaskStore()
+
+
+
+
 const isMenu = ref(false)
 const isDeleting = ref(false)
 
+const onDelete = async (id: number) => {
+    let res = confirm('Вы действительно хотите удалить заметку?')
+
+    if (!res) return
+
+    try {
+        isMenu.value = false
+        isDeleting.value = true
+
+        await delNotes(id)
+
+        isDeleting.value = false
+    } catch (error) {
+        console.log(error)
+        isDeleting.value = false
+    }
+}
+
 interface Task {
-  id: number;
-  title: string;
-  body: string;
-  time: number;
+    id: number;
+    title: string;
+    body: string;
 }
 
 const props = defineProps<{
-  items: Task
+    items: Task
 }>()
 
-const displayableDate = (date: any) => {
-  return new Intl.DateTimeFormat(
-    'ru-RU',
-    { dateStyle: 'full' },
-  ).format(new Date(date))
-}
 </script>

@@ -24,7 +24,9 @@
             <div v-else-if="isTask">
                 <NotesList v-for="task in Tasks" :key="task.id" :items="task" />
             </div>
-
+            <div v-else class="mt-10">
+                <p class="text-center text-white text-[18px] font-bold">Нет заметок</p>
+            </div>
         </div>
     </MainLayout>
 </template>
@@ -43,7 +45,6 @@ interface Task {
     id: number;
     title: string;
     body: string;
-    time: number;
 }
 
 const Tasks = ref<Task[]>([])
