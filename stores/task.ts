@@ -14,11 +14,12 @@ export const useTaskStore = defineStore("task", {
     return {
       isCloseOverlay: false,
       tasks: [] as Task[],
+      isPendding: false,
     };
   },
   actions: {
     async getNotes() {
-      
+      this.isPendding = true;
       onSnapshot(notesCollectionRef, (querySnapshot) => {
         let Tasks: any = [];
         querySnapshot.forEach((doc) => {
@@ -30,6 +31,7 @@ export const useTaskStore = defineStore("task", {
           Tasks.push(task);
         });
         this.tasks = Tasks;
+        this.isPendding = false;
       })
     },
 

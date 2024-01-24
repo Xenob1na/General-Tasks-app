@@ -14,14 +14,14 @@
                 </template>
             </ClientOnly>
 
-            <div v-if="isLoading">
+            <div v-if="isPendding">
                 <div class="text-white mx-auto flex flex-col items-center justify-center">
                     <Icon name="line-md:downloading-loop" size="50" color="white" />
                     <div class="text-white">Загрузка данных...</div>
                 </div>
             </div>
 
-            <div v-else-if="isTask">
+            <div v-if="isTask">
                 <NotesList v-for="task in Tasks" :key="task.id" :items="task" />
             </div>
             <div v-else class="mt-10">
@@ -37,9 +37,9 @@ import { useTaskStore } from "../stores/task"
 import { storeToRefs } from "pinia";
 
 const { getNotes } = useTaskStore()
-const { tasks } = storeToRefs(useTaskStore())
+const { tasks, isPendding } = storeToRefs(useTaskStore())
 
-const isLoading = ref(false)
+
 
 interface Task {
     id: number;
@@ -51,13 +51,10 @@ const Tasks = ref<Task[]>([])
 const isTask = ref(false)
 
 onMounted(async () => {
-    isLoading.value = true
     try {
         await getNotes()
-        isLoading.value = false
     } catch (error) {
         console.log(error)
-        isLoading.value = false
     }
 })
 
